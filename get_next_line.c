@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:36:49 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/01/17 18:57:58 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:20:29 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,38 @@ char	*get_next_line(int fd)
 {
     char *line;
     char *buffer;
-    // char static *stash;
+    // static char *stash; // alocar esto 
     ssize_t bytes_read;
-    
+    int i;
     bytes_read = 0;
     buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
     line = malloc(bytes_read + 1);
     
-    ft_memcpy(line, buffer, bytes_read);
-    line[bytes_read] = '\0';
-    return line;
+    // si el bytes_read es 0, significa que llegó al final del fichero
+    if(bytes_read == 0)
+    {
+        //si llega al final del fichero hay que devolver 0 (según subject)
+        free(buffer);
+        return (0);
+    }
+    
+    i = 0;
+    while(*buffer != '\n')
+    {
+        line[i] = *buffer;
+        i++;
+        buffer++;
+    }
+
+    if(*buffer == '\n'){
+        line[i] = *buffer;
+        i++;
+    }
+
+    line[i] = '\0';
+    //free(buffer);
+    return (line);
 }
 
 int main()
