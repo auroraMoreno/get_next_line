@@ -5,58 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 11:36:49 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/01/24 14:20:29 by aumoreno         ###   ########.fr       */
+/*   Created: 2024/02/07 11:17:44 by aumoreno          #+#    #+#             */
+/*   Updated: 2024/02/07 13:35:31 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 1024
+
+// aqui es donde yo llamo al buffer
+char *ft_read_line(int fd, char *stash)
+{
+    printf("hola ya empiezo");
+    char *buffer; 
+    ssize_t bytes_read; 
+    buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
+    if(buffer == 0)
+        return (NULL);
+    bytes_read = 1; // esto es 1 porque si no, nunca entra en el bucle 
+    while(buffer[bytes_read] != '\n' && bytes_read > 0)
+    {
+        bytes_read = read(fd,buffer,BUFFER_SIZE);
+        // si es mayor que 0 => lo guardo en el stash
+        if(bytes_read > 0)
+        {
+            // stash es lo que ya tiene dentro asi que hay que añadir 
+            // lo del buffer a lo que ya tiene el stash 
+            buffer[bytes_read] = '\0';
+            stash = ft_strjoin(stash, buffer);
+        }
+    }
+    free(buffer);
+    // aqui tengo que liberar el stash con ft_free y return line
+    return stash; 
+
+}
 
 char	*get_next_line(int fd)
 {
-    char *line;
-    char *buffer;
-    // static char *stash; // alocar esto 
-    ssize_t bytes_read;
-    int i;
-    bytes_read = 0;
-    buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-    line = malloc(bytes_read + 1);
-    
-    // si el bytes_read es 0, significa que llegó al final del fichero
-    if(bytes_read == 0)
-    {
-        //si llega al final del fichero hay que devolver 0 (según subject)
-        free(buffer);
-        return (0);
-    }
-    
-    i = 0;
-    while(*buffer != '\n')
-    {
-        line[i] = *buffer;
-        i++;
-        buffer++;
-    }
-
-    if(*buffer == '\n'){
-        line[i] = *buffer;
-        i++;
-    }
-
-    line[i] = '\0';
-    //free(buffer);
+    static char *stash = NULL; 
+    char *line; 
+    // if(fd < 0 || BUFFER_SIZE < 1)
+    //     return NULL;
+    line = ft_read_line(fd, stash);
     return (line);
-}
-
-int main()
-{
-    int fd = open("prueba.txt",O_RDWR);
-    char* result = get_next_line(fd);
-    printf("%s", result);
-    free(result);
-    return (0);
 }
 

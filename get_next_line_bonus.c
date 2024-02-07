@@ -6,12 +6,12 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:27:59 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/01/17 20:27:06 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/01/26 11:04:06 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*get_next_line_bonus(int fd)
 {
-    
+    (void)fd;
     return (0);
 }
