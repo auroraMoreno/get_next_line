@@ -2,7 +2,6 @@
 
 int	main(void)
 {
-    printf("hola ya empiezo");
 	int		fd;
 	char	*line;
 
@@ -13,6 +12,7 @@ int	main(void)
 	free(line);
 
 	line = get_next_line(fd);
+	printf("%s", line);
 	free(line);
 
 	close(fd);

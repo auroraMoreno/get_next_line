@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/07 13:37:59 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:39:48 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+// s1 = stash s2 = buffer 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -34,8 +35,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if(!s1)
 	{
 		s1 = malloc(sizeof(char) + 1);
-		if(s1)
-			return NULL;	
 	}
 
 	len1 = ft_strlen(s1);
@@ -59,5 +58,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 
 // para buscar el \n voy a usar strrchr que 
-// busca la ultima vez que se encontró ese char en concreto 
+// busca la ultima vez que se encontró ese char en concreto
+//   The strrchr() function returns a pointer to the last occurrence of the character c in the string s.
 
+char	*ft_strrchr(const char *s, int c)
+{
+	const char	*innit;
+	char		ctr;
+
+	innit = s;
+	ctr = c;
+	while (*s)
+		s++;
+	while (*s != ctr)
+	{
+		if (s == innit)
+			return (0);
+		s--;
+	}
+	return ((char *) s);
+}
