@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/09 12:39:48 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/10 02:10:07 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-// s1 = stash s2 = buffer 
-char	*ft_strjoin(char const *s1, char const *s2)
+// s1 = stash || s2 = buffer 
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	int		len1;
@@ -35,6 +35,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if(!s1)
 	{
 		s1 = malloc(sizeof(char) + 1);
+		
+		if(!s1)
+			return (NULL);
+		
+		s1[0] = 0;
+		
 	}
 
 	len1 = ft_strlen(s1);
@@ -56,25 +62,55 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 }
 
-
-// para buscar el \n voy a usar strrchr que 
-// busca la ultima vez que se encontró ese char en concreto
-//   The strrchr() function returns a pointer to the last occurrence of the character c in the string s.
-
-char	*ft_strrchr(const char *s, int c)
+// para buscar el \n voy a usar strchr que 
+// The strchr() function returns a pointer to the first occurrence of the character c in the string s:
+char	*ft_strchr(char *s, int c)
 {
-	const char	*innit;
-	char		ctr;
+	char	*aux;
 
-	innit = s;
-	ctr = c;
-	while (*s)
-		s++;
-	while (*s != ctr)
+	aux = (char *)s;
+	while (*aux != (char)c)
 	{
-		if (s == innit)
+		if (*aux == '\0')
+		{
 			return (0);
-		s--;
+		}
+		aux++;
 	}
-	return ((char *) s);
+	return (aux);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*str;
+
+	str = (void *)malloc(nmemb * size);
+	if (str == 0)
+		return (0);
+	str[0] = '\0';
+	return (str);
+}
+
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+
+	if (!s)
+		return (0);
+	if (start > ft_strlen(s))
+	{
+		substr = ft_calloc(1, 1); 
+		return (substr);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	substr = ft_calloc((len + 1), 1);
+	if (!substr)
+		return (0);
+	if (ft_strlen(s) > (size_t)start)
+	{
+		ft_strlcpy(substr, (char *)(s + start), len + 1);
+	}
+	return (substr);
 }
