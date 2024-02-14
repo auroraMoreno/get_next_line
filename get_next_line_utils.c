@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
+/*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/10 02:10:07 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:50:59 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
+
 
 // s1 = stash || s2 = buffer 
 char	*ft_strjoin(char *s1, char *s2)
@@ -80,9 +82,9 @@ char	*ft_strchr(char *s, int c)
 	return (aux);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*str;
+	char	*str;
 
 	str = (void *)malloc(nmemb * size);
 	if (str == 0)
@@ -91,7 +93,10 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (str);
 }
 
-
+/*
+	s = stash 
+	
+*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
@@ -113,4 +118,27 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		ft_strlcpy(substr, (char *)(s + start), len + 1);
 	}
 	return (substr);
+}
+
+/*
+
+*/
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+{
+	unsigned int	i;
+	unsigned int	c;
+
+	i = 0;
+	c = 0;
+	while (src[c])
+		c++;
+	if (size < 1)
+		return (c);
+	while (src[i] && i < size - 1)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (c);
 }

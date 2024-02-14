@@ -3,28 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
+/*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:17:44 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/10 01:51:14 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:06:52 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
 char *ft_get_new_line(char *stash)
 {
-    char *line; 
-    char *aux; 
-
-    // conseguir el length del stash hasta el len 
+    // conseguir el length del stash hasta el salto de linea (incluida) 
     // alocar la memoria de line accordinlgy 
     // inicializamos con el valor del substr 
-    
-    
-    
+    char *line; //  aloco la memoria según el length del stash hasta el salto de linea 
+    //char *aux; // aqui meto lo que me sobra del stash? 
+	int len; 
+
+	// tmb podría usar el strlcopy para copiar dentro de line lo que haya en el stash? 
+	len = 0;
+	while()
+	{
+		len++;
+		// ft_strlcpy(line, stash, );
+	}
+	
+	line = ft_substr(stash,0,len);
     return line; 
-}
+}*/
 
 
 // aqui es donde yo llamo al buffer
@@ -49,7 +57,6 @@ char *ft_read_line(int fd, char *stash)
         }
     }
     free(buffer);
-    // aqui tengo que liberar el stash con ft_free y return line
     return (stash); 
 
 }
