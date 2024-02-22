@@ -52,7 +52,7 @@ char *ft_read_line(int fd, char *stash)
         {
             // stash es lo que ya tiene dentro asi que hay que añadir 
             // lo del buffer a lo que ya tiene el stash 
-            //buffer[bytes_read] = '\0';
+            buffer[bytes_read] = '\0';
             stash = ft_strjoin(stash, buffer);
         }
     }
