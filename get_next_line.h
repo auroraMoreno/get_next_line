@@ -6,7 +6,7 @@
 /*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:26 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/16 10:24:08 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:55:08 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 100
 #endif
 
 
@@ -31,6 +31,7 @@ char	        *ft_strjoin(char *s1, char *s2);
 char	        *ft_strchr(char *s, int c);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
+char			*ft_strrchr(const char *s, int c);
 
 
 #endif

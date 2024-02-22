@@ -6,7 +6,7 @@
 /*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/22 12:35:06 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:29:12 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,29 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[len1] = s2[i];
 		len1++;
 	}
-	str[len1] = '\0';
+	//str[len1] = '\0';
 	return (str);
 
 }
+
+char	*ft_strrchr(const char *s, int c)
+{
+	const char	*innit;
+	char		ctr;
+
+	innit = s;
+	ctr = c;
+	while (*s)
+		s++;
+	while (*s != ctr)
+	{
+		if (s == innit)
+			return (0);
+		s--;
+	}
+	return ((char *) s);
+}
+
 
 // para buscar el \n voy a usar strchr que 
 // The strchr() function returns a pointer to the first occurrence of the character c in the string s:
@@ -75,6 +94,7 @@ char	*ft_strchr(char *s, int c)
 	{
 		if (*aux == '\0')
 		{
+			printf("hola");
 			return (0);
 		}
 		aux++;
