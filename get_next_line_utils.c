@@ -6,7 +6,7 @@
 /*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/14 10:50:59 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:35:06 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 
 /*
-
+ pasar este método a substr para no tener tantos métodos
 */
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {

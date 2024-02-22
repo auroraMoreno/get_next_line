@@ -6,7 +6,7 @@
 /*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:17:44 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/14 11:06:52 by aumoreno         ###   ########.fr       */
+ /*   Updated: 2024/02/14 11:32:45 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *ft_read_line(int fd, char *stash)
         {
             // stash es lo que ya tiene dentro asi que hay que añadir 
             // lo del buffer a lo que ya tiene el stash 
-            buffer[bytes_read] = '\0';
+            //buffer[bytes_read] = '\0';
             stash = ft_strjoin(stash, buffer);
         }
     }
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 {
     static char *stash = NULL; 
     char *line; 
-    if(fd < 1 || BUFFER_SIZE < 1)
+    if(fd < 0 || BUFFER_SIZE < 0)
         return NULL; 
     line = ft_read_line(fd, stash);
     return (line);
