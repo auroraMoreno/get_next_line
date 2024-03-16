@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aumoreno <aumoreno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/02/22 14:29:12 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/03/16 11:04:20 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-
 
 
 // s1 = stash || s2 = buffer 
@@ -64,24 +63,6 @@ char	*ft_strjoin(char *s1, char *s2)
 
 }
 
-char	*ft_strrchr(const char *s, int c)
-{
-	const char	*innit;
-	char		ctr;
-
-	innit = s;
-	ctr = c;
-	while (*s)
-		s++;
-	while (*s != ctr)
-	{
-		if (s == innit)
-			return (0);
-		s--;
-	}
-	return ((char *) s);
-}
-
 
 // para buscar el \n voy a usar strchr que 
 // The strchr() function returns a pointer to the first occurrence of the character c in the string s:
@@ -94,7 +75,6 @@ char	*ft_strchr(char *s, int c)
 	{
 		if (*aux == '\0')
 		{
-			printf("hola");
 			return (0);
 		}
 		aux++;
@@ -115,50 +95,33 @@ char	*ft_calloc(size_t nmemb, size_t size)
 
 /*
 	s = stash 
-	
+	start 
+	len
 */
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *stash, unsigned int start, size_t len)
 {
 	char	*substr;
+	size_t 	i;
 
-	if (!s)
+	if (!stash)
 		return (0);
-	if (start > ft_strlen(s))
+	if (start > ft_strlen(stash))
 	{
 		substr = ft_calloc(1, 1); 
 		return (substr);
 	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
+	if (ft_strlen(stash) - start < len)
+		len = ft_strlen(stash) - start;
 	substr = ft_calloc((len + 1), 1);
 	if (!substr)
 		return (0);
-	if (ft_strlen(s) > (size_t)start)
-	{
-		ft_strlcpy(substr, (char *)(s + start), len + 1);
-	}
-	return (substr);
-}
-
-/*
- pasar este método a substr para no tener tantos métodos
-*/
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
-{
-	unsigned int	i;
-	unsigned int	c;
-
+		
 	i = 0;
-	c = 0;
-	while (src[c])
-		c++;
-	if (size < 1)
-		return (c);
-	while (src[i] && i < size - 1)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (c);
+	while (i < len && stash[start + i])
+    {
+        substr[i] = stash[start + i];
+        i++;
+    }
+	substr[i] = '\0';
+	return (substr);
 }
