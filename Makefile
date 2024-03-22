@@ -6,7 +6,7 @@
 #    By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 11:36:38 by aumoreno          #+#    #+#              #
-#    Updated: 2024/01/16 16:30:54 by aumoreno         ###   ########.fr        #
+#    Updated: 2024/03/18 17:49:33 by aumoreno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 # ADD BONUS RULE !!!!!!!
 
-SRCS = get_next_line.c get_next_line_utils.c \
-		get_next_line_bonus.c get_next_line_bonus_utils.c
+SRCS = get_next_line.c get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

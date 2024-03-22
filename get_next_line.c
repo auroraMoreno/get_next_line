@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:58:16 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/03/16 16:11:22 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:15:34 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_read_line(int fd, char *stash)
 	buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
+	buffer = '\0';
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0)
 	{
@@ -72,6 +73,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	// add condition that checks si en el stash ya hay una salto linea 
+	// si no hay un salto de linea we read
 	stash = ft_read_line(fd, stash);
 	if (!stash)
 		return (NULL);
