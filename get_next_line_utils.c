@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:07 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/03/16 16:47:10 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/03/24 10:39:23 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -24,9 +26,9 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
-	int		i;
-	int		j;
+	char		*str;
+	size_t		i;
+	size_t		j;
 
 	if (!s1)
 	{
@@ -35,9 +37,9 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = 0;
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = (char *)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
-		return (0);
+		return (ft_free(&s1));
 	i = -1;
 	while (s1[++i])
 		str[i] = s1[i];
@@ -45,21 +47,24 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[++j])
 		str[i + j] = s2[j];
 	str[j + i] = '\0';
+	free(s1);
 	return (str);
 }
 
 char	*ft_strchr(char *s, int c)
 {
-	char	*aux;
+	int	i;
 
-	aux = (char *)s;
-	while (*aux != (char)c)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (*aux == '\0')
-			return (0);
-		aux++;
+		if (s[i] == (char)c)
+			return (&((char *)s)[i]);
+		i++;
 	}
-	return (aux);
+	if ((char)c == '\0')
+		return (&((char *)s)[i]);
+	return (NULL);
 }
 
 char	*ft_calloc(size_t nmemb, size_t size)
@@ -73,7 +78,7 @@ char	*ft_calloc(size_t nmemb, size_t size)
 	return (str);
 }
 
-char	*ft_substr(char const *stash, unsigned int start, size_t len)
+char	*ft_substr(char *stash, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	i;
@@ -89,7 +94,7 @@ char	*ft_substr(char const *stash, unsigned int start, size_t len)
 		len = ft_strlen(stash) - start;
 	substr = ft_calloc((len + 1), 1);
 	if (!substr)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < len && stash[start + i])
 	{

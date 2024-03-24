@@ -6,43 +6,60 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:58:16 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/03/18 18:15:34 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/03/24 10:19:02 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_get_new_line(char *stash, size_t break_pos)
+char	*ft_get_new_line(char *stash)
 {
 	char	*line;
+	char	*p_len;
+	int		break_pos;
 
+	p_len = ft_strchr(stash, '\n');
+	break_pos = p_len - stash + 1;
 	line = ft_substr(stash, 0, break_pos);
 	if (!line)
 		return (NULL);
 	return (line);
 }
 
-char	*ft_clean_stash(char *stash, size_t break_pos, size_t len)
+char	*ft_clean_stash(char *stash)
 {
-	char	*new_stash;
+	char	*clean_stash;
+	char	*aux;
+	int		break_pos;
 
-	if (!stash[len])
+	aux = ft_strchr(stash, '\n');
+	if (!aux)
+	{
+		clean_stash = NULL;
 		return (ft_free(&stash));
-	new_stash = ft_substr(stash, break_pos, len);
-	if (!new_stash)
+	}
+	else
+	{
+		break_pos = (aux - stash) + 1;
+	}
+	if (!stash[break_pos])
+		return (ft_free(&stash));
+	clean_stash = ft_substr(stash, break_pos, ft_strlen(stash) - break_pos);
+	ft_free(&stash);
+	if (!clean_stash)
 		return (NULL);
-	return (new_stash);
+	return (clean_stash);
 }
 
 char	*ft_read_line(int fd, char *stash)
 {
 	char	*buffer;
-	ssize_t	bytes_read;
+	int		bytes_read;
 
-	buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (NULL);
-	buffer = '\0';
+		return (ft_free(&stash));
+	buffer[0] = '\0';
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0)
 	{
@@ -54,6 +71,8 @@ char	*ft_read_line(int fd, char *stash)
 		}
 	}
 	free(buffer);
+	if (bytes_read == -1)
+		return (ft_free(&stash));
 	return (stash);
 }
 
@@ -61,31 +80,23 @@ char	*ft_free(char **stash)
 {
 	free(*stash);
 	*stash = NULL;
-	return (*stash);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash = NULL;
 	char		*line;
-	size_t		break_pos;
-	size_t		len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	// add condition that checks si en el stash ya hay una salto linea 
-	// si no hay un salto de linea we read
-	stash = ft_read_line(fd, stash);
+	if ((stash && !ft_strchr(stash, '\n')) || !stash)
+		stash = ft_read_line(fd, stash);
 	if (!stash)
 		return (NULL);
-	len = ft_strlen(stash);
-	if (ft_strchr(stash, '\n'))
-		break_pos = ft_strchr(stash, '\n') - stash + 1;
-	else
-		break_pos = len;
-	line = ft_get_new_line(stash, break_pos);
+	line = ft_get_new_line(stash);
 	if (!line)
 		return (ft_free(&stash));
-	stash = ft_clean_stash(stash, break_pos, len - break_pos);
+	stash = ft_clean_stash(stash);
 	return (line);
 }

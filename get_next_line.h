@@ -6,7 +6,7 @@
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:37:26 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/03/16 16:18:53 by aumoreno         ###   ########.fr       */
+/*   Updated: 2024/03/24 10:13:34 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 
 char	*get_next_line(int fd);
 char	*ft_read_line(int fd, char *stash);
-char	*ft_get_new_line(char *stash, size_t break_pos);
+char	*ft_get_new_line(char *stash);
 char	*ft_free(char **stash);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strrchr(const char *s, int c);
+char	*ft_substr(char *stash, unsigned int start, size_t len);
+char	*ft_clean_stash(char *stash);;
 #endif
