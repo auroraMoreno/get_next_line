@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aumoreno < aumoreno@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 15:58:16 by aumoreno          #+#    #+#             */
-/*   Updated: 2024/03/27 18:16:26 by aumoreno         ###   ########.fr       */
+/*   Created: 2024/01/16 16:27:59 by aumoreno          #+#    #+#             */
+/*   Updated: 2024/03/27 18:15:51 by aumoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_get_new_line(char *stash)
 {
@@ -85,18 +85,18 @@ char	*ft_free(char **stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	static char	*stash[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
-	if ((stash && !ft_strchr(stash, '\n')) || !stash)
-		stash = ft_read_line(fd, stash);
-	if (!stash)
+	if ((stash[fd] && !ft_strchr(stash[fd], '\n')) || !stash[fd])
+		stash[fd] = ft_read_line(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = ft_get_new_line(stash);
+	line = ft_get_new_line(stash[fd]);
 	if (!line)
-		return (ft_free(&stash));
-	stash = ft_clean_stash(stash);
+		return (ft_free(&stash[fd]));
+	stash[fd] = ft_clean_stash(stash[fd]);
 	return (line);
 }
